@@ -11,7 +11,8 @@ const fetchUsers = async () => {
 const getUserElements = (users) => {
   const ul = document.createElement("ul")
   ul.classList.add("list-group")
-  const liElementsHtml = users.forEach((user) => {
+
+  users.forEach((user) => {
     const li = document.createElement("li")
     li.classList.add("list-item")
     const name = document.createElement("p")
