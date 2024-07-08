@@ -1,10 +1,28 @@
-const form = document.getElementById("sampleForm")
+const app = document.getElementById("app-container")
 
-const displayFormData = (event) => {
-  event.preventDefault()
-  console.log(event.target)
-  const data = new FormData(event.target)
-  console.log(data)
-  data.forEach((value, key) => console.log(key, value))
+const fetchUsers = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users")
+  const users = await res.json()
+
+  const userElements = getUserElements(users)
+  app.appendChild(userElements)
 }
-form.addEventListener("submit", displayFormData)
+
+const getUserElements = (users) => {
+  const ul = document.createElement("ul")
+  ul.classList.add("list-group")
+  const liElementsHtml = users.forEach((user) => {
+    const li = document.createElement("li")
+    li.classList.add("list-item")
+    const name = document.createElement("p")
+    name.innerHTML = user.name
+    const email = document.createElement("p")
+    email.innerHTML = user.email
+    li.appendChild(name)
+    li.appendChild(email)
+    ul.appendChild(li)
+  })
+
+  return ul
+}
+fetchUsers()
